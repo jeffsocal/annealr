@@ -4,11 +4,7 @@
 # impute the missing feature intensity values 
 
 rm(list=ls())
-library(tidyverse)
-source("./lib/input.R")
-source("./lib/clustering.R")
-source("./lib/plotting.R")
-
+suppressMessages(library(tidyverse))
 
 help_text <- "
  NAME
@@ -45,7 +41,8 @@ ui_read_path        <- "./data"
 ui_input_regex      <- "\\.ms1.fea.rds"
 ui_save_matrix      <- "labelfree_matrix"
 ui_impute_yn        <- TRUE
-cpu_cores			<- 1
+cpu_cores			  <- 1
+exe_path            <- "./"
 
 for (arg in commandArgs()){
     arg_value <- as.character(sub("--[a-z]*\\=", "", arg))
@@ -53,9 +50,13 @@ for (arg in commandArgs()){
     if( grepl("--regex", arg) ) ui_input_regex <- arg_value
     if( grepl("--out", arg) ) ui_save_matrix <- arg_value
     if( grepl("--impute", arg) ) ui_impute_yn <- arg_value
-    if( grepl("--cpu", arg) ) stop(help_text)
+    if( grepl("--exp", arg) ) exe_path <- arg_value
+    if( grepl("--cpu", arg) ) cpu_cores <- arg_value
+    if( grepl("--help", arg) ) stop(help_text)
 }
 
+source(paste0(exe_path, "lib/input.R"))
+source(paste0(exe_path, "lib/progtimer.R"))
 ###############################################################################
 # INPUT VALIDATION
 message <- NULL

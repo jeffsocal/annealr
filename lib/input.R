@@ -3,8 +3,6 @@
 #
 # read and merge data
 
-source('./lib/progtimer.R')
-
 bigData <- function(file_paths = NULL, message = "merging data"){
     df <- c()
     pb <- progtimer(length(file_paths), message)
@@ -19,4 +17,21 @@ bigData <- function(file_paths = NULL, message = "merging data"){
                           mutate(file_name = this_file))
     }
     return(df)
+}
+
+readData <- function(file_name){
+  if(grepl(".rds$", file_name)){
+    df <- readRDS(file_name)
+  } else if(grepl(".csv$", file_name)){
+    df <- read.csv(file_name)
+  }
+    return(df)
+}
+
+saveData <- function(df, file_name){
+  if(grepl(".rds$", file_name)){
+    saveRDS(df, file_name)
+  } else if(grepl(".csv$", file_name)){
+    write.csv(df, file_name)
+  }
 }

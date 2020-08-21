@@ -19,6 +19,7 @@
 
 # RStudio files
 .Rproj.user/
+*.Rproj
 
 # produced vignettes
 vignettes/*.html
@@ -39,3 +40,6 @@ vignettes/*.pdf
 .Renviron
 .Rproj.user
 .Rproj
+
+# odd test files
+report*

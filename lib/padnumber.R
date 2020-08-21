@@ -3,7 +3,11 @@
 #
 # pad number helper
 
-library(stringr)
+suppressMessages(
+    library(
+        tidyverse 
+    )
+)
 
 num_pad <- Vectorize(
   function(x, w = NULL){
